@@ -1,0 +1,27 @@
+[
+    {
+        "code": 1,
+        "libelle": "1ér grade",
+        "str_echelons": "1;2"
+    },
+    {
+        "code": 2,
+        "libelle": "2éme grade",
+        "str_echelons": "3"
+    },
+    {
+        "code": 3,
+        "libelle": "3éme grade",
+        "str_echelons": "4;5"
+    },
+    {
+        "code": 4,
+        "libelle": "4éme grade",
+        "str_echelons": "6;7"
+    },
+    {
+        "code": 5,
+        "libelle": "3éme grade",
+        "str_echelons": "8"
+    }
+]

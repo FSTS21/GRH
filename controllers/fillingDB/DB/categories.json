@@ -1,0 +1,10 @@
+[{
+    "code" : 1,
+    "libelle" : "Ingénieurs",
+    "str_cadres" : "1"
+},
+{
+    "code" : 2,
+    "libelle" : "Techniciens",
+    "str_cadres" : "2;3"
+}]

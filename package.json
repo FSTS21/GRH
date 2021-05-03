@@ -1,0 +1,37 @@
+{
+  "name": "grh",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "nodemon": "nodemon -e js,json,hbs ./bin/www --trace-sync-io",
+    "start_nodemon": "SET NODE_ENV=development&& npm run nodemon",
+    "sassbootstrap": "sass public/stylesheets/custom:public/stylesheets/min --watch  --style compressed"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.2",
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "async": "^3.2.0",
+    "bootstrap": "^4.6.0",
+    "cookie-parser": "~1.4.4",
+    "custom-env": "^2.0.1",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-handlebars": "^5.2.1",
+    "express-validator": "^6.10.0",
+    "handlebars": "^4.7.7",
+    "handlebars-dateformat": "^1.1.1",
+    "hbs": "^4.1.1",
+    "http-errors": "~1.6.3",
+    "i18n": "^0.13.2",
+    "moment": "^2.29.1",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.11.15",
+    "mongoose-beautiful-unique-validation": "^7.1.1",
+    "morgan": "~1.9.1",
+    "password-validator": "^5.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

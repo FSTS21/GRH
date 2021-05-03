@@ -1,0 +1,4 @@
+exports.types = [
+    "echelon",
+    "grade"
+]
