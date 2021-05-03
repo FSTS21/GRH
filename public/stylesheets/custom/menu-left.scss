@@ -1,0 +1,78 @@
+#menu-left {
+
+    .vertical-menu .list-group-item {
+        display: block;
+    }
+
+    .vertical-menu .list-group-item i {
+        width: 30px;
+    }
+
+    .vertical-menu .list-group-item[aria-expanded]:after {
+        font-family: FontAwesome;
+        text-align: right;
+        float: right;
+    }
+
+    .vertical-menu .list-group-item[aria-expanded="true"]:after {
+        content: "";
+    }
+
+    .vertical-menu .list-group-item[aria-expanded="false"]:after {
+        content: "";
+    }
+
+    .vertical-menu .list-group-item {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .vertical-menu .list-group-item {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    .vertical-menu>.list-group-item:first-child {
+        border-top-right-radius: .25rem;
+        border-top-left-radius: .25rem;
+    }
+
+    .vertical-menu>.list-group-item:last-child {
+        border-bottom-right-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+    }
+
+    /* collapsing true - level 1 */
+    .vertical-menu>.collapsing[aria-expanded="false"] .list-group-item {
+        padding-left: 20px;
+        transition: padding-left .35s ease;
+    }
+
+    .vertical-menu>.collapse.show .list-group-item {
+        padding-left: 56px;
+    }
+
+    .vertical-menu>.collapsing:not([aria-expanded]) .list-group-item,
+    .vertical-menu>.collapsing[aria-expanded="true"] .list-group-item {
+        padding-left: 56px;
+        transition: padding-left .35s ease;
+    }
+
+    /* collapsing true - level 2 */
+    .vertical-menu>*>.collapsing[aria-expanded="false"] .list-group-item {
+        padding-left: 56px;
+        transition: padding-left .35s ease;
+    }
+
+    .vertical-menu>*>.collapse.show .list-group-item {
+        padding-left: 92px;
+    }
+
+    .vertical-menu>*>.collapsing:not([aria-expanded]) .list-group-item,
+    .vertical-menu>*>.collapsing[aria-expanded="true"] .list-group-item {
+        padding-left: 92px;
+        transition: padding-left .35s ease;
+    }
+
+}

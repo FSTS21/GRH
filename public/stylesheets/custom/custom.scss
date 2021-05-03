@@ -1,0 +1,18 @@
+$theme-colors: ("c-white": #fff) !default;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    background: url(../../images/bodyBg.jpg) repeat;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 5rem;
+}
+
+.logo_usmba{
+    width: 60%;
+    min-width: 100px;
+    max-width: 500px;
+}
+
+@import "./menu-left"

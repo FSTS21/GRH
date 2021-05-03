@@ -1,0 +1,23 @@
+[
+    {
+        "CIN" : "317901s",
+        "nbEnfants" : 1,
+        "nationnalite" : "marocaine",
+        "demandes" : [],
+        "nom" : "MALKI",
+        "prenom" : "Hicham",
+        "nomAr" : "هشام",
+        "prenomAr" : "إيمان",
+        "dateNaissance" : "2021-04-01",
+        "lieuNaissance" : "FES",
+        "lieuNaissanceAr" : "تاونات",
+        "situationFamiliale" : "celib",
+        "email" : "hichamLmalki@gmail.co",
+        "adresse" : "Boite Postale N°10245, Fés Principal",
+        "gsm" : "0613830131",
+        "numFix" : "0535212543",
+        "matriculeVehicule" : "Bc154",
+        "photo" : "",
+        "sexe" : "h"
+    }
+]
