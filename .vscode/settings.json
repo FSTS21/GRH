@@ -1,0 +1,11 @@
+{
+    "hbs.syntaxProfiles": {
+        "hbs": "html"
+    },
+    "hbs.triggerExpansionOnTab": true,
+    "beautify.language": {
+        "html": [
+            "hbs"
+        ]
+    }
+}

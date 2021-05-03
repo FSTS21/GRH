@@ -1,0 +1,21 @@
+{
+	"generals": {
+		"errors": {
+			"special_chars": "generals.errors.special_chars"
+		}
+	},
+	"models": {
+		"personne": {
+			"situation": {
+				"celib": "models.personne.situation.celib",
+				"marie": "models.personne.situation.marie",
+				"devorce": "models.personne.situation.devorce",
+				"divorce": "models.personne.situation.divorce"
+			}
+		}
+	},
+	"Masculin": "Masculin",
+	"Féminin": "Féminin",
+	"Marocaine": "Marocaine",
+	"Internationale": "Internationale"
+}

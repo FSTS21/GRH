@@ -1,0 +1,11 @@
+{
+	"models": {
+		"personne": {
+			"situation": {
+				"celib": "models.personne.situation.celib",
+				"marie": "models.personne.situation.marie",
+				"divorce": "models.personne.situation.divorce"
+			}
+		}
+	}
+}
