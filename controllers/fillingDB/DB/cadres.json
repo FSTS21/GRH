@@ -1,16 +1,16 @@
 [{
         "code": 1,
-        "libelle": "Ingénieur",
+        "libelle": "ingenieur",
         "str_grades": "1;2"
     },
     {
         "code": 2,
-        "libelle": "Technicien",
+        "libelle": "technicien",
         "str_grades": "3;4"
     },
     {
         "code": 3,
-        "libelle": "Technicien adjoint",
+        "libelle": "technicien_adjoint",
         "str_grades": "5"
     }
 

@@ -15,8 +15,8 @@ const GradeSchema = Schema({
         type: String,
         required : [true, "Ce champ est requis"],
         enum: {
-            values: Object.keys(gradeConf.libelle),
-            message : "Veuillez choisir un grade"
+            values: Object.keys(gradeConf.libelles),
+            message : "Veuillez choisir un grade parmi la liste"
         }
     },
     echelons : [{

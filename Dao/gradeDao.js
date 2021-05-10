@@ -1,12 +1,12 @@
 // const ObjectId = require('mongoose').Types.ObjectId;
-const Echelon = require("../models/echelon")
+const Grade = require("../models/grade")
 
 const findByCode = (code) => {
     const obj = {
         code: code
     }
     // console.log("EchelonDao.findByCode => %s", obj)
-    return Echelon.findOne(obj)
+    return Grade.findOne(obj)
 }
 exports.findByCode = findByCode
 

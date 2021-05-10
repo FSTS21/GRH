@@ -36,13 +36,13 @@ const PersonnelSchema = new Schema({
     fonction : {
         type: String,
         required : [true, "Ce champ est requis"],
-        minlength: messages.minlength(60),
+        minlength: messages.minlength(5),
         maxlength: messages.maxlength(120)
     },
     fonctionAr : {
         type: String,
         required : [true, "Ce champ est requis"],
-        minlength: messages.minlength(60),
+        minlength: messages.minlength(5),
         maxlength: messages.maxlength(120)
     },
     debutFonction : {

@@ -1,0 +1,15 @@
+[
+    {
+        "str_personne" : "317901s",
+        "SOM" : 314452,
+        "dateRecrutement" : "2012-12-24",
+        "arreteRecrutement" : "85f8f98z.jpg",
+        "dateIntegrationFST" : "2014-02-05",
+        "fonction" : "programmeur" ,
+        "fonctionAr" : "مبرمج",
+        "debutFonction" : "2018-05-05",
+        "emailAcademique" : "hicham.malki@usmba.ac.ma",
+        "categorie" : "fonctionnaire",
+        "str_avancements" : "2;3"
+    }
+]

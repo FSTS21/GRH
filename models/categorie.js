@@ -17,7 +17,7 @@ const CategorieSchema = Schema({
         unique : [true, "Cette catégorie est dupliquée!"],
         enum: {
             values: Object.keys(categorieConf.libelles),
-            message : "Veuillez choisir une catégorie"
+            message : "Veuillez choisir une catégorie valide"
         }
     },
     cadres : [{
