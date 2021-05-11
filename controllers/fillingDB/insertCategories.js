@@ -7,48 +7,46 @@ module.exports = (req, res, next) => {
     const cadreDao = require("../../Dao/cadreDao")
     const mongoose = require("mongoose")
 
+    const withCadres = categories.filter(e => e.str_cadres.trim())
+
     async.series({
             findCadres: callback => {
-                categories.forEach((c, key, arr) => {
+                let count = 0
+                withCadres.forEach((c, key, arr) => {
                     c.cadres = new Array
-                    const arr_cadres = !c.str_cadres.trim() ? [] : c.str_cadres.split(";")
-                    console.log("length : " + arr_cadres.length)
+                    const arr_cadres = c.str_cadres.split(";")
 
-                    if (!arr_cadres.length) {
-                        if (key === arr.length - 1) // check if that is the last categorie
-                            callback(null, true)
-                    } else {
-                        specialFncs.trimmedData(arr_cadres).forEach(av => {
-                            cadreDao.findByCode(av.trim())
-                                .orFail(() => {
-                                    throw new Error("can't find cadre with code " + av)
-                                })
-                                .then(result => {
-                                    if (result && Object.keys(result).length) {
+                    specialFncs.trimmedData(arr_cadres).forEach(av => {
+                        cadreDao.findByCode(av.trim())
+                            .orFail(() => {
+                                throw new Error("can't find cadre with code " + av)
+                            })
+                            .then(result => {
+                                if (result && Object.keys(result).length) {
 
-                                        if (!mongoose.Types.ObjectId.isValid(result._id))
-                                            throw new Error(result._id + " Is not a valid ObjectId")
+                                    if (!mongoose.Types.ObjectId.isValid(result._id))
+                                        throw new Error(result._id + " Is not a valid ObjectId")
 
-                                        c.cadres.push(result)
-                                        console.log("push " + result._id)
-                                        if (c.cadres.length == arr_cadres.length) {
-                                            console.log("all cadres of this categorie was pushed")
-                                            // return // equivalent of continue
+                                    c.cadres.push(result)
+                                    console.log("push " + result._id)
+                                    if (c.cadres.length == arr_cadres.length) {
+                                        console.log("all cadres of this categorie was pushed")
+                                        // return // equivalent of continue
 
-                                            if (key === arr.length - 1) // check if that is the last categorie
-                                                callback(null, true)
-                                        }
-
+                                        count++
+                                        if (count === arr.length) // check if that is the last echelon
+                                            callback(null, true)
                                     }
 
-                                })
+                                }
 
-                                .catch(function (err) {
-                                    console.log("error av : ", err)
-                                    callback(err)
-                                })
-                        })
-                    }
+                            })
+
+                            .catch(function (err) {
+                                console.log("error av : ", err)
+                                callback(err)
+                            })
+                    })
                 });
 
             },

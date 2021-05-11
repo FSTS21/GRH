@@ -7,47 +7,47 @@ module.exports = (req, res, next) => {
     const gradeDao = require("../../Dao/gradeDao")
     const mongoose = require("mongoose")
 
+    const withGrades = cadres.filter(e => e.str_grades.trim())
+
     async.series({
             findGrades: callback => {
-                cadres.forEach((c, key, arr) => {
+
+                let count = 0
+                withGrades.forEach((c, key, arr) => {
                     c.grades = new Array
-                    const arr_grades = !c.str_grades.trim() ? [] : c.str_grades.split(";")
+                    const arr_grades = c.str_grades.split(";")
                     console.log("length : " + arr_grades.length)
 
-                    if (!arr_grades.length) {
-                        if (key === arr.length - 1) // check if that is the last cadre
-                            callback(null, true)
-                    } else {
-                        specialFncs.trimmedData(arr_grades).forEach(av => {
-                            gradeDao.findByCode(av.trim())
-                                .orFail(() => {
-                                    throw new Error("can't find grade with code " + av)
-                                })
-                                .then(result => {
-                                    if (result && Object.keys(result).length) {
+                    specialFncs.trimmedData(arr_grades).forEach(av => {
+                        gradeDao.findByCode(av.trim())
+                            .orFail(() => {
+                                throw new Error("can't find grade with code " + av)
+                            })
+                            .then(result => {
+                                if (result && Object.keys(result).length) {
 
-                                        if (!mongoose.Types.ObjectId.isValid(result._id))
-                                            throw new Error(result._id + " Is not a valid ObjectId")
+                                    if (!mongoose.Types.ObjectId.isValid(result._id))
+                                        throw new Error(result._id + " Is not a valid ObjectId")
 
-                                        c.grades.push(result)
-                                        console.log("push " + result._id)
-                                        if (c.grades.length == arr_grades.length) {
-                                            console.log("all grades of this cadre was pushed")
-                                            // return // equivalent of continue
+                                    c.grades.push(result)
+                                    console.log("push " + result._id)
+                                    if (c.grades.length == arr_grades.length) {
+                                        console.log("all grades of this cadre was pushed")
+                                        // return // equivalent of continue
 
-                                            if (key === arr.length - 1) // check if that is the last cadre
-                                                callback(null, true)
-                                        }
+                                        count++
+                                        if (count === arr.length) // check if that is the last echelon
+                                            callback(null, true)
                                     }
+                                }
 
-                                })
+                            })
 
-                                .catch(function (err) {
-                                    console.log("error av : ", err)
-                                    callback(err)
-                                })
-                        })
-                    }
+                            .catch(function (err) {
+                                console.log("error av : ", err)
+                                callback(err)
+                            })
+                    })
                 });
 
             },

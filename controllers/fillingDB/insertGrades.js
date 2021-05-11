@@ -7,47 +7,45 @@ module.exports = (req, res, next) => {
     const echelonDao = require("../../Dao/echelonDao")
     const mongoose = require("mongoose")
 
+    const withEchelons = grades.filter(e => e.str_echelons.trim())
+
     async.series({
             findEchelons: callback => {
-                grades.forEach((c, key, arr) => {
+                let count = 0
+                withEchelons.forEach((c, key, arr) => {
                     c.echelons = new Array
-                    const arr_echelons = !c.str_echelons.trim() ? [] : c.str_echelons.split(";")
-                    if (!arr_echelons.length) {
-                        console.log("key : " + key + "  | Empty array")
-                        if (key === arr.length - 1) // check if that is the last grade
-                            callback(null, true)
-                    } else {
-                        specialFncs.trimmedData(arr_echelons).forEach(ech => {
-                            echelonDao.findByCode(ech.trim())
-                                .orFail(() => {
-                                    throw new Error("can't find echelon with code " + ech)
-                                })
-                                .then(result => {
-                                    if (result && Object.keys(result).length) {
+                    const arr_echelons = c.str_echelons.split(";")
 
-                                        if (!mongoose.Types.ObjectId.isValid(result._id))
-                                            throw new Error(result._id + " Is not a valid ObjectId")
+                    specialFncs.trimmedData(arr_echelons).forEach(ech => {
+                        echelonDao.findByCode(ech.trim())
+                            .orFail(() => {
+                                throw new Error("can't find echelon with code " + ech)
+                            })
+                            .then(result => {
+                                if (result && Object.keys(result).length) {
 
-                                        c.echelons.push(result)
-                                        console.log("push " + result._id + " from " + ech.trim())
-                                        if (c.echelons.length == arr_echelons.length) {
-                                            console.log("all echelons of this grade was pushed")
-                                            // return // equivalent of continue
+                                    if (!mongoose.Types.ObjectId.isValid(result._id))
+                                        throw new Error(result._id + " Is not a valid ObjectId")
 
-                                            if (key === arr.length - 1) // check if that is the last grade
-                                                callback(null, true)
+                                    c.echelons.push(result)
+                                    console.log("push " + result._id + " from " + ech.trim())
+                                    if (c.echelons.length == arr_echelons.length) {
+                                        console.log("all echelons of this grade was pushed")
+                                        // return // equivalent of continue
 
-                                        }
-
+                                        count++
+                                        if (count === arr.length) // check if that is the last echelon
+                                            callback(null, true)
                                     }
-                                })
+                                }
+                            })
 
-                                .catch(function (err) {
-                                    console.log("error av : ", err)
-                                    callback(err)
-                                })
-                        })
-                    }
+                            .catch(function (err) {
+                                console.log("error av : ", err)
+                                callback(err)
+                            })
+                    })
+
                 });
 
             },
