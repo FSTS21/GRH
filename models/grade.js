@@ -27,4 +27,5 @@ const GradeSchema = Schema({
 })
 
 GradeSchema.plugin(require('mongoose-beautiful-unique-validation'))
+GradeSchema.plugin(require('mongoose-deep-populate')(mongoose))
 module.exports = mongoose.model("Grade", GradeSchema)

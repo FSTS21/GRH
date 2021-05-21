@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/stylesheets/min/custom.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" >
+    
+    <title>{{  title }}</title>
+</head>
+{{ setVar "layout" "col-12 col-xl-10 " }}
+
+<body class="">
+    <ul class="nav bg-dark d-flex justify-content-center">
+        <div class="d-flex justify-content-between {{ layout }} ">
+            <li class="nav-item ">
+                <a class="nav-link active text-white" href="#">
+                    <i class="far fa-user"></i>
+                    Bonjour Mme. EL ARRAF Siham</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link active text-white" href="#">
+                    <i class="far fa-share-square"></i>
+                    Quitter</a>
+            </li>
+        </div>
+    </ul>
+
+    <div class="d-flex justify-content-center mt-5">
+        <div class="{{ layout }}">
+            <img class="logo_usmba" src="/images/logo_usmba.png" class="pl-3">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <div class="{{ layout }} row">
+
+            <div id="menu-left" class="col-12 col-md-3 pl-0 pr-2">
+                <div class="list-group vertical-menu ">
+                    <a href="#vehicle" class="list-group-item collapsed " data-toggle="collapse" aria-expanded="false">
+                        <i class="fa fa-car"></i> &nbsp; Personnel
+
+                    </a>
+                    <div class="collapse" id="vehicle">
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-list"></i>&nbsp; list
+                        </a>
+                    </div>
+
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-history"></i> &nbsp; Recrutement
+                    </a>
+                    <a href="admin/avancements" class="list-group-item active">
+                        <i class="fa fa-history"></i> &nbsp; Avancement
+                    </a>
+                </div>
+            </div>

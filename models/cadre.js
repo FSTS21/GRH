@@ -28,4 +28,5 @@ const CadreSchema = Schema({
 })
 
 CadreSchema.plugin(require('mongoose-beautiful-unique-validation'))
+CadreSchema.plugin(require('mongoose-deep-populate')(mongoose))
 module.exports = mongoose.model("Cadre", CadreSchema)

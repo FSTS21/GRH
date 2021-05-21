@@ -101,6 +101,13 @@ exports.setVar = (varName, varValue, options) => {
     options.data.root[varName] = varValue;
 }
 
+exports.for  = function(from, to, incr, block) {
+    var accum = '';
+    for(var i = from; i < to; i += incr)
+        accum += block.fn(i);
+    return accum;
+}
+
 exports.dateFormat = require('handlebars-dateformat')
 
 const i18n = require("i18n");
