@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/stylesheets/min/custom.css" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" >
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     
     <title>{{  title }}</title>
 </head>
@@ -53,8 +54,16 @@
                     <a href="#" class="list-group-item">
                         <i class="fa fa-history"></i> &nbsp; Recrutement
                     </a>
-                    <a href="admin/avancements" class="list-group-item active">
-                        <i class="fa fa-history"></i> &nbsp; Avancement
+                    <a  href="#avancements"  class="list-group-item collapsed active" data-toggle="collapse" aria-expanded="false">
+                        <i class="fa fa-history"></i> &nbsp; Avancements
                     </a>
+                    <div class="collapse" id="avancements">
+                        <a href="/admin/avancements/tous" class="list-group-item">
+                            <i class="fa fa-list"></i>&nbsp; Tous
+                        </a>
+                        <a href="/admin/avancements/grade" class="list-group-item">
+                            <i class="fa fa-list"></i>&nbsp; Grade
+                        </a>
+                    </div>
                 </div>
             </div>

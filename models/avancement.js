@@ -14,7 +14,7 @@ const AvancementSchema = Schema({
         type: String,
         required : [true, "Ce champ est requis"],
         enum : {
-            values : avancementConf.types,
+            values : avancementConf.types.keys,
             message : "Veuillez choisir un type d'avancement valide"
         }
     },

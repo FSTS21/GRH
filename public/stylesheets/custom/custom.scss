@@ -15,4 +15,9 @@ body {
     max-width: 500px;
 }
 
+.column{
+    vertical-align : middle  !important;
+    // text-align:center
+}
+
 @import "./menu-left"

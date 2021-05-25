@@ -1,11 +1,25 @@
 {
+	"generals": {
+		"errors": {
+		}
+	},
 	"models": {
 		"personne": {
 			"situation": {
-				"celib": "models.personne.situation.celib",
-				"marie": "models.personne.situation.marie",
-				"divorce": "models.personne.situation.divorce"
+				"celib": "Célibataire",
+				"marie": "Marié",
+				"divorce": "Divorcé"
 			}
+		},
+		"grade": {
+			"grade_1": "1ér grade"
+		},
+		"cadre": {
+			"ingenieur": "Ingénieur"
 		}
-	}
+	},
+	"Masculin": "Masculin",
+	"Féminin": "Féminin",
+	"Marocaine": "Marocaine",
+	"Internationale": "Internationale"
 }

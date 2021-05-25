@@ -116,3 +116,9 @@ exports.translate = (str, ...args) => {
     const array_args = array_str.filter(v => v !== array_str[0])
     return i18n.__(array_str[0], ...array_args.concat(args))
 }
+
+exports.concat = function(){
+    var arg = Array.prototype.slice.call(arguments,0);
+    arg.pop();
+    return arg.join('');
+  };

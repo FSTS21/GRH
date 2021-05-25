@@ -1,4 +1,4 @@
-exports.types = [
-    "echelon",
-    "grade"
-]
+exports.types = {
+        echelon: "echelon",
+        grade: "grade"
+    }

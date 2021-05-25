@@ -13,13 +13,14 @@
     </div>
     {{/if}}
 
-    <table id="myTable" class="display">
-      <thead>
+    <table class="table">
+      <thead class="thead-light" >
         <tr>
-          <th>Cadre</th>
-          <th>Grade</th>
-          <th>Echelon</th>
-          <th>Avancement</th>
+          <th scope="col">Cadre</th>
+          <th scope="col" >Grade</th>
+          <th scope="col">Echelon</th>
+          <th scope="col">Date d'effet</th>
+          <th scope="col">Personnel</th>
         </tr>
       </thead>
       <tbody>
@@ -44,18 +45,21 @@
         
         --}}
       
-       {{#each results}}
+       {{#each allAvancements}}
         <tr>
           
-          {{#if count }} <td rowspan="{{ count }}"> {{ setVar "i" 2 }}  {{libelle}} </td> {{/if}}
+          {{#if count }} <td rowspan="{{ count }}" class="column"> {{ setVar "i" 2 }}  {{ translate (concat "models.cadre." libelle ) }} </td> {{/if}}
           {{#each grades}}
-          {{#if count }} <td rowspan="{{ count}}">  {{ setVar "i" 3 }} {{libelle}}  </td> {{/if}}
+          {{#if count }} <td rowspan="{{ count}}" class="column" >  {{ setVar "i" 3 }}   {{ translate (concat "models.grade." libelle ) }}  </td> {{/if}}
             {{#each echelons}}
-            {{#if avancements.length }} <td rowspan="{{ avancements.length }}">  {{ setVar "i" 4 }} {{indice}} </td> {{/if}}
+            {{#if count }} <td rowspan="{{ count }}" class="column">  {{ setVar "i" 4 }} Echelon : {{titre}} | {{indice}} </td> {{/if}}
               {{#each avancements}}
-              <td rowspan="1">   {{code}}  </td>
+              {{#if personnel }} <td rowspan="1" class="column">
+                {{dateFormat dateEffet "yyyy-MM-DD" }}
+              </td>
+              <td rowspan="1" class="column">  <a href="/admin/personnel/{{personnel._id}}"> {{personnel.personne.prenom}} {{personnel.personne.nom}} </a> </td> {{/if}}
 
-              {{#for ../../../../i 4 1}}
+              {{#for ../../../../i 5 1}}
                  {{ setVar "i" 3 }}<td  rowspan="1" style="display: none;">{{ this }} </td>
               {{/for }} 
               </tr>
@@ -80,8 +84,8 @@
 
 <script>
   $(() => {
-    $('#myTable').DataTable();
-    $('#myTable tr:last').remove();
+    // $('#myTable').DataTable();
+    // $('#myTable tr:last').remove();
   })
 </script>
 
