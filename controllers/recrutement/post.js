@@ -4,14 +4,19 @@ const {
 } = require('express-validator');
 const specialFncs = require('../../config/specialFunctions');
 const Personne = require('../../models/personne')
+const personneConf = require('../../models/config/personneConf')
+
 const config = require("./config")
 
-
+let ext
 
 module.exports = [
     /* *********************** middleware to initale my page **********/
     (req, res, next) => {
-        req.body = { ...req.fields }
+        req.body = {
+            ...req.fields
+        }
+        req.body.photo = req.files.photo.name
         next()
     },
     /* *********************** middlewares to check my fields **********/
@@ -25,9 +30,45 @@ module.exports = [
     check("lieuNaissanceAr").trim().custom(specialFncs.checkSpecialChars),
     check("adresse").trim().custom(specialFncs.checkSpecialChars),
     check("matriculeVehicule").trim().custom(specialFncs.checkSpecialChars),
-    check("photo").trim().custom(specialFncs.checkSpecialChars),
     check("gsm").trim().custom(specialFncs.checkSpecialChars),
     check("numFix").trim().custom(specialFncs.checkSpecialChars),
+    check('photo', "Veuillez joindre une photo").notEmpty(),
+    check('photo')
+    .custom((value, {
+        req
+    }) => {
+
+        if (req.files.photo.name === '')
+            return true
+
+        switch (req.files.photo.type) {
+            case 'image/pjpeg':
+            case 'image/jpeg':
+                ext = 'jpg';
+                break;
+            case 'image/png':
+                ext = 'png';
+                break;
+            default:
+                ext = false
+                break
+        }
+
+        return ext
+    })
+    .withMessage('Formats de fichiers pris en charge : JPG et PNG'), // custom error message that will be send back if the file in not a pdf. 
+    check('photo')
+    .custom((value, {
+        req
+    }) => {
+        // console.log("photo : ", req.files.photo.size / (1024 * 1024))
+
+        if (req.files.photo.size / (1024 * 1024) > 2)
+            return false
+        else
+            return true
+    })
+    .withMessage('Taille de fichier dépasse 2 Mo'), // custom error message that will be send back if the file in not a pdf. 
 
     /* ********************** middleware to initialise all my form with req.body. fields */
     (req, res, next) => {
@@ -72,10 +113,28 @@ module.exports = [
     check("lieuNaissanceAr").escape(),
     check("adresse").escape(),
     check("matriculeVehicule").escape(),
-    check("photo").escape(),
     check("gsm").escape(),
     check("numFix").escape(),
-    
+
+    (req, res, next) => {
+        var oldpath = req.files.photo.path;
+        const fileName = res.locals.personne._id + "." + ext
+        res.locals.personne.photo = fileName
+        var newpath = personneConf.pathFolder + fileName;
+        console.log("fileName : ",fileName)
+
+        console.log("oldpath : ", oldpath)
+        require('fs').rename(oldpath, newpath, function (err) {
+            if (err) { //throw new Error(err)
+                console.log("newpath : ",newpath)
+                res.locals.result = "Une erreur s'est produite lors du transfert du fichier"
+                res.render(config.page)
+            }
+            next()
+        });
+
+    },
+
     /* ***************** middlware to save the personne ****************/
     (req, res, next) => {
         const personneDao = require("../../Dao/personneDao")

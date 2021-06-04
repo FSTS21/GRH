@@ -112,8 +112,9 @@ const PersonneSchema = new Schema({
     },
     photo: {
         type: String,
-        // minlength: messages.minlength(10),
-        maxlength: messages.maxlength(20)
+        required : [true, "Ce champ est requis"],
+        minlength: messages.minlength(20),
+        maxlength: messages.maxlength(30)
     },
 
     /* Foreign keys */

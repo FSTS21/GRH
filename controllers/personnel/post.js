@@ -35,7 +35,6 @@ module.exports = [
         res.locals.avancement = new Avancement({
             dateEffet: req.fields.dateEffet,
             type: req.fields.type,
-            arrete: "test_111.jpg"
         })
 
         res.locals.cadre = req.fields.cadre
@@ -143,7 +142,7 @@ module.exports = [
     (req, res, next) => {
         async.parallel({
             addToPersonnel: (callback) => {
-                personnel.update({
+                personnel.updateOne({
                     _id: ObjectId(req.params._id)
                 }, {
                     $push: { avancements : res.locals.avancement }
@@ -155,7 +154,7 @@ module.exports = [
                 )
             },
             addToEchelon : (callback) => {
-                Echelon.update({
+                Echelon.updateOne({
                     _id: ObjectId(req.fields.echelon)
                 }, {
                     $push: { avancements : res.locals.avancement }

@@ -10,13 +10,17 @@ const Personne = require("../../models/personne")
 
 module.exports = [
     (req, res, next) => {
-        res.locals.page_title = "Avancement (" + req.params.type + ")";
         if (req.params.type == avancementConf.types.grade)
             res.locals.match = {
                 type: avancementConf.types.grade
             }
-        else
+        else {
+            req.params.type = "Tous"
             res.locals.match = {}
+        }
+
+
+        res.locals.page_title = "Avancement (" + req.params.type + ")";
 
         next()
     },
