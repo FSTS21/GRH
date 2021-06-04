@@ -13,51 +13,120 @@
     </div>
     {{/if}}
     <div>
-        <ul>
-            <li> Nom : <b>{{ personnel.personne.nom }}</b> </li>
-            <li> Prénom : <b>{{ personnel.personne.prenom }}</b> </li>
-            <li> CIN : <b>{{ personnel.personne.CIN }}</b> </li>
-        </ul>
+      <ul>
+        <li> Nom : <b>{{ personnel.personne.nom }}</b> </li>
+        <li> Prénom : <b>{{ personnel.personne.prenom }}</b> </li>
+        <li> CIN : <b>{{ personnel.personne.CIN }}</b> </li>
+      </ul>
     </div>
-    <br/>
+    <br />
 
 
-    <form>
-      <div class="form-row col-6">
-        <div class="form-groupe col-12">
+    <form class="col-12" method="POST" enctype="multipart/form-data">
+      <div class="form-row ">
+        <div class="form-group col-6">
           <label class="mr-sm-2" for="cadreSelect">Cadre</label>
-          <select class="custom-select mr-sm-2" id="cadreSelect">
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.cadre 'is-invalid' ''}} "
+            aria-describedby="cadreHelp" id="cadreSelect" name="cadre">
             <option selected></option>
-            <option value="1">One</option>
+            {{#each formCadres }}
+            <option value={{_id}} {{ ternaryIf (iff ../cadre '==' _id ) 'selected' ''}} data-grades="{{ json grades }}">
+              {{ translate libelle_tr }}</option>
+            {{/each}}
           </select>
-            </div>
+          {{#if myErrors.cadre }}
+          <small id="cadreHelp" class="form-text text-muted">{{ myErrors.cadre }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="typeSelect">Type d'avancement</label>
+
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.type 'is-invalid' ''}} " aria-describedby="typeHelp"
+            id="typeSelect" name="type">
+            <option></option>
+            {{#each typesForm }}
+            <option value={{@key}} {{ ternaryIf (iff ../avancement.type '==' @key) 'selected' ''}}>
+              {{ this}}</option>
+            {{/each }}
+          </select>
+
+          {{#if myErrors.type }}
+          <small id="typeHelp" class="form-text text-muted">{{ myErrors.type }}</small>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="gradeSelect">Grade</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.grade 'is-invalid' ''}} "
+            aria-describedby="gradeHelp" id="gradeSelect" name="grade">
+            <option></option>
+          </select>
+          {{#if myErrors.grade }}
+          <small id="gradeHelp" class="form-text text-muted">{{ myErrors.grade }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="dateEffetInput">Date d'effet</label>
+          <input type="date" name="dateEffet" value="{{dateFormat avancement.dateEffet 'yyyy-MM-DD' }}"
+            class="{{ternaryIf myErrors.dateEffet 'is-invalid' ''}} form-control" id="dateEffetInput"
+            aria-describedby="dateEffetHelp">
+          {{#if myErrors.dateEffet }}
+          <small id="dateEffetHelp" class="form-text text-muted">{{ myErrors.dateEffet }}</small>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="echelonSelect">Echelon</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.echelon 'is-invalid' ''}} "
+            aria-describedby="echelonHelp" id="echelonSelect" name="echelon">
+            <option></option>
+          </select>
+          {{#if myErrors.echelon }}
+          <small id="echelonHelp" class="form-text text-muted">{{ myErrors.echelon }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="arreteInput">Date d'effet</label>
+          <input type="file" name="arrete" class="form-control" id="arreteInput"
+            aria-describedby="arreteHelp">
+          {{#if myErrors.arrete }}
+          <small id="arreteHelp" class="form-text text-muted">{{ myErrors.arrete }}</small>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
       </div>
     </form>
 
-    <br/>
+    <br />
 
     <h4>
-        Avancemennts
+      Avancements
     </h4>
     <table class="table">
-        <tr>
-            <th> Type d'av.</th>
-            <th> Cadre </th>
-            <th> Grade </th>
-            <th> Echelon </th>
-            <th> Date d'effet </th>
-            <th> Arrete </th>
-        </tr>
-        {{#each personnel.avancements}}
-        <tr>
-            <td> {{ this.type }}  </td>
-            <td> {{ translate (concat "models.cadre.libelle." this.cadre.libelle) }}  </td>
-            <td> {{ translate (concat "models.grade.libelle." this.grade.libelle) }}  </td>
-            <td> Echelon {{ this.echelon.titre }} | {{ this.echelon.indice }}  </td>
-            <td> {{ dateFormat this.dateEffet "yyyy-MM-DD" }}  </td>
-            <td> <a href="/arretes/{{ this.arrete }}" class="text-dark"> <i class="fas fa-eye"></i></a> </td>
-        </tr>
-        {{/each}}
+      <tr>
+        <th> Type d'av.</th>
+        <th> Cadre </th>
+        <th> Grade </th>
+        <th> Echelon </th>
+        <th> Date d'effet </th>
+        <th> Arrete </th>
+      </tr>
+      {{#each personnel.avancements}}
+      <tr>
+        <td> {{ this.type }} </td>
+        <td> {{ translate this.cadre.libelle_tr }} </td>
+        <td> {{ translate this.grade.libelle_tr }} </td>
+        <td> Echelon {{ this.echelon.titre }} | {{ this.echelon.indice }} </td>
+        <td> {{ dateFormat this.dateEffet "yyyy-MM-DD" }} </td>
+        <td> <a href={{ this.link_arrete }} class="text-dark"> <i class="fas fa-eye"></i></a> </td>
+      </tr>
+      {{/each}}
     </table>
   </div>
 </div>
@@ -69,9 +138,60 @@
   $(() => {
     // $('#myTable').DataTable();
     // $('#myTable tr:last').remove();
+
+    const loadGrades = function () {
+      console.log("load grades ...")
+      const grades = $(this).find("option:selected").data("grades")
+      $("#gradeSelect option").remove();
+      $("#echelonSelect option").remove();
+      $("#gradeSelect").append($('<option>').val("").text(""))
+      let selected
+      if (grades) {
+        grades.forEach(g => {
+
+          if ("{{ grade }}" == g._id) {
+            selected = true
+          } else
+            selected = false
+
+          $("#gradeSelect").append($('<option>').val(g._id).text(g.libelle_tr).attr("data-echelons", JSON
+            .stringify(
+              g.echelons)).attr("selected", selected))
+        });
+      }
+    }
+
+    const loadEchelons = function () {
+      const echelons = $(this).find("option:selected").data("echelons")
+      $("#echelonSelect option").remove();
+      $("#echelonSelect").append($('<option>').val("").text(""))
+
+      let selected
+      if (echelons) {
+        echelons.forEach(e => {
+
+          if ("{{ echelon._id }}" == e._id) {
+            selected = true
+          } else
+            selected = false
+
+          $("#echelonSelect").append($('<option>').val(e._id).text("Echelon " + e.titre + " | " + e.indice)
+            .attr("selected", selected))
+        });
+      }
+
+    }
+
+
+    $("#cadreSelect").change(loadGrades)
+    $("#gradeSelect").change(loadEchelons)
+
+    // if()
+    $("#cadreSelect").trigger("change")
+    $("#gradeSelect").trigger("change")
+
   })
 </script>
-
 
 </body>
 

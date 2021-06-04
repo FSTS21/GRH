@@ -6,7 +6,7 @@ const messages = require("./config/messages")
 const CategorieSchema = Schema({
     code: {
         type: Number,
-        required : [true, "Ce champ est requis"],
+        required : true,
         unique : "Code dupliqué !",
         minlength : messages.minlength(1),
         maxlength :  messages.maxlength(99999),

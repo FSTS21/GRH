@@ -1,21 +1,12 @@
 const Personnel = require("../../models/personnel")
 const Cadre = require("../../models/cadre")
 
-module.exports = [(req, res, next) => {
-        res.locals.page_title = "Informations personnels"
+module.exports = [
+    (req, res, next) => {
         Personnel.findById(req.params._id)
             .populate({
                 path: "personne",
                 model: require("../../models/personne")
-            })
-            .populate({
-                path: "avancements",
-                model: require("../../models/avancement"),
-                options: {
-                    sort: {
-                        dateEffet: -1
-                    }
-                }
             })
             .orFail(() => {
                 console.log("Can't find it")
@@ -56,24 +47,5 @@ module.exports = [(req, res, next) => {
             })
 
 
-    },
-    (req, res, next) => {
-        res.locals.cadres.forEach(c => {
-            c.grades.forEach(g => {
-                g.echelons.forEach(e => {
-                    e.avancements.forEach(a => {
-                        res.locals.personnel.avancements.forEach(p_av => {
-                            if (p_av._id.equals(a)) {
-                                p_av.cadre = c
-                                p_av.grade = g
-                                p_av.echelon = e
-                            }
-                        })
-                    })
-                })
-            })
-        })
-
-        res.render("admin/personnel")
     }
 ]

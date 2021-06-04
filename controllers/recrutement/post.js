@@ -10,7 +10,10 @@ const config = require("./config")
 
 module.exports = [
     /* *********************** middleware to initale my page **********/
-
+    (req, res, next) => {
+        req.body = { ...req.fields }
+        next()
+    },
     /* *********************** middlewares to check my fields **********/
     check("nom").trim().custom(specialFncs.checkSpecialChars),
     check("prenom").trim().custom(specialFncs.checkSpecialChars),
@@ -25,16 +28,14 @@ module.exports = [
     check("photo").trim().custom(specialFncs.checkSpecialChars),
     check("gsm").trim().custom(specialFncs.checkSpecialChars),
     check("numFix").trim().custom(specialFncs.checkSpecialChars),
-    
-
 
     /* ********************** middleware to initialise all my form with req.body. fields */
     (req, res, next) => {
         console.log("initialise all my form")
         res.locals.personne = new Personne({
-            ...req.body
+            ...req.fields
         })
-        console.log("my form is initalised => %s", res.locals.link)
+        console.log("my form is initalised => %s", res.locals.personne)
         next()
     },
 

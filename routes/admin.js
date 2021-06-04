@@ -5,6 +5,7 @@ router.get("/", require('../controllers/recrutement/get'))
 router.post("/", require('../controllers/recrutement/post'))
 router.use("/", require('../controllers/recrutement/error'))
 router.get("/avancements/:type", require('../controllers/avancement/list'))
-router.get("/personnel/:_id", require('../controllers/personnel/personnel'))
+router.get("/personnel/:_id", require('../controllers/personnel/get'))
+router.post("/personnel/:_id", require('../controllers/personnel/post'))
 
 module.exports = router

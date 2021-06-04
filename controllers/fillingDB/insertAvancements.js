@@ -4,7 +4,11 @@ module.exports = (req, res, next) => {
     const async = require("async")
 
     const specialFncs = require("../../config/specialFunctions")
-      
+    
+    avancements.forEach(c => {
+        c.filling = true
+    })
+
     async.series([
         callback => {
             Avancement.insertMany(specialFncs.trimmedData(avancements), function (err) {

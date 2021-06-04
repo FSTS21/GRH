@@ -48,9 +48,9 @@
        {{#each allAvancements}}
         <tr>
           
-          {{#if count }} <td rowspan="{{ count }}" class="column"> {{ setVar "i" 2 }}  {{ translate (concat "models.cadre." libelle ) }} </td> {{/if}}
+          {{#if count }} <td rowspan="{{ count }}" class="column"> {{ setVar "i" 2 }}  {{ translate libelle_tr ) }} </td> {{/if}}
           {{#each grades}}
-          {{#if count }} <td rowspan="{{ count}}" class="column" >  {{ setVar "i" 3 }}   {{ translate (concat "models.grade." libelle ) }}  </td> {{/if}}
+          {{#if count }} <td rowspan="{{ count}}" class="column" >  {{ setVar "i" 3 }}   {{ translate libelle_tr ) }}  </td> {{/if}}
             {{#each echelons}}
             {{#if count }} <td rowspan="{{ count }}" class="column">  {{ setVar "i" 4 }} Echelon : {{titre}} | {{indice}} </td> {{/if}}
               {{#each avancements}}

@@ -123,5 +123,17 @@ const PersonneSchema = new Schema({
     }],
 })
 
+PersonneSchema.virtual("nationnalite_tr").get( function(){
+    return "models.personne.nationnalite."+this.nationnalite
+})
+
+PersonneSchema.virtual("sexe_tr").get( function(){
+    return "models.personne.sexe."+this.sexe
+})
+
+PersonneSchema.virtual("situation_tr").get( function(){
+    return "models.personne.situation."+this.situation
+})
+
 PersonneSchema.plugin(require('mongoose-beautiful-unique-validation'))
 module.exports = mongoose.model("Personne", PersonneSchema)
