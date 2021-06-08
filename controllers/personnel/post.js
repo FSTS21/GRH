@@ -18,15 +18,13 @@ module.exports = [
     require("./form"),
     require("./personnel"),
     require('./avancements'),
-    (req, res, next) => {
-        req.body.arrete = req.files.arrete.name
-        next()
-    },
 
     /* ********************** middleware to initialise all my form with req.body. fields */
     (req, res, next) => {
         res.locals.myErrors = {}
         console.log("initialise all my form")
+
+        req.body.arrete = req.files.arrete.name
 
         res.locals.echelon = new Echelon({
             _id: req.fields.echelon
@@ -53,7 +51,6 @@ module.exports = [
         switch (req.files.arrete.type) {
             case 'application/pdf':
                 ext = 'pdf';
-                console.log("ext : ", ext)
                 break;
             case 'image/pjpeg':
             case 'image/jpeg':

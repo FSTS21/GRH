@@ -121,7 +121,9 @@ module.exports = [
                 g.echelons.forEach(e => {
                     e.count = 0
                     e.avancements.forEach(a => {
-                        a.personnel = res.locals.lastAvs.filter(this_p => this_p.lastAv.code == a.code)[0]
+                        a.personnel = res.locals.lastAvs.filter(this_p => { 
+                            // console.log("this_p.lastAv => ",this_p)
+                            return this_p.lastAv.code == a.code})[0]
                         if (a.personnel) {
                             c.count++
                             g.count++

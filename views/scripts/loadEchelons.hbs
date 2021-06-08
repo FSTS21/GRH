@@ -1,0 +1,57 @@
+<script type="application/javascript">
+    $(() => {
+
+        const loadGrades = function () {
+            console.log("load grades ...")
+            const grades = $(this).find("option:selected").data("grades")
+            $("#gradeSelect option").remove();
+            $("#echelonSelect option").remove();
+            $("#gradeSelect").append($('<option>').val("").text(""))
+            let selected
+            if (grades) {
+                grades.forEach(g => {
+                    console.log(" grade : {{ grade }}")
+                    if ("{{ grade }}" == g._id) {
+                        selected = true
+                    } else
+                        selected = false
+
+                    $("#gradeSelect").append($('<option>').val(g._id).text(g.libelle_tr).attr(
+                        "data-echelons", JSON
+                        .stringify(
+                            g.echelons)).attr("selected", selected))
+                });
+            }
+        }
+
+        const loadEchelons = function () {
+            const echelons = $(this).find("option:selected").data("echelons")
+            $("#echelonSelect option").remove();
+            $("#echelonSelect").append($('<option>').val("").text(""))
+
+            let selected
+            if (echelons) {
+                echelons.forEach(e => {
+
+                    if ("{{ echelon._id }}" == e._id) {
+                        selected = true
+                    } else
+                        selected = false
+
+                    $("#echelonSelect").append($('<option>').val(e._id).text("Echelon " + e.titre +
+                            " | " + e.indice)
+                        .attr("selected", selected))
+                });
+            }
+
+        }
+
+
+        $("#cadreSelect").change(loadGrades)
+        $("#gradeSelect").change(loadEchelons)
+
+        $("#cadreSelect").trigger("change")
+        $("#gradeSelect").trigger("change")
+
+    })
+</script>

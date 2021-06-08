@@ -147,8 +147,8 @@ module.exports = [
                     })
                     return
                 } else {
-                    console.log("Personne added!")
-                    res.locals.result = "Personne ajoutée avec succés"
+                    console.log("Personne added! ",newPersonne._id)
+                    // res.locals.result = "Personne ajoutée avec succés"
                     res.locals.success = true
                     next()
                 }
@@ -166,9 +166,12 @@ module.exports = [
     /* ************************ The LAST middleware *******************/
     function (req, res, next) {
         console.log("LAST middleware")
-        res.render(config.page, {
+        /* res.render(config.page, {
             ...config.initPage
         })
-        return
+        return */
+        console.log("redirect to ",res.locals.personne._id)
+        res.redirect('./recrutement/' +res.locals.personne._id);
+
     }
 ]

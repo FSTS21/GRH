@@ -28,6 +28,12 @@
 				"ingenieur": "ingenieur",
 				"technicien_adjoint": "models.cadre.libelle.technicien_adjoint"
 			}
+		},
+		"personnel": {
+			"categorie": {
+				"fonctionnaire": "models.personnel.categorie.fonctionnaire",
+				"enseignant": "models.personnel.categorie.enseignant"
+			}
 		}
 	},
 	"Masculin": "Masculin",
