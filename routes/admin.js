@@ -12,5 +12,6 @@ router.use("/recrutement", require('../controllers/recrutement/error'))
 router.get("/avancements/:type", require('../controllers/avancement/list'))
 router.get("/personnel/:_id", require('../controllers/personnel/get'))
 router.post("/personnel/:_id", require('../controllers/personnel/post'))
+router.get("/personnel/removeAv/:avancement/:echelon/:personnel", require('../controllers/personnel/removeAv'))
 
 module.exports = router
