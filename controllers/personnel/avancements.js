@@ -1,7 +1,48 @@
 const Personnel = require("../../models/personnel")
+const Cadre = require("../../models/cadre")
 
 module.exports = [
     (req, res, next) => {
+
+        Cadre.find()
+            .populate({
+                path: 'grades',
+                model: require("../../models/grade"),
+                populate: {
+                    path: 'echelons',
+                    model: require("../../models/echelon"),
+                    match: {
+                        avancements: {
+                            $not: {
+                                $size: 0
+                            }
+                        }
+                    }
+                }
+            })
+            .then(results => {
+                res.locals.cadres = results
+                next()
+            })
+
+
+    },
+    (req, res, next) => {
+        /* if(req.method == "POST" && res.locals.callthis == false) {
+            console.log(" NEXT..............")
+            next()
+        } */
+
+        let match
+        if (req.method == "POST") {
+            match = {
+                type: {
+                    $ne: ""
+                }
+            }
+        } else match = {}
+
+        console.log("second avancemennts")
         Personnel.findById(req.params._id)
             .populate({
                 path: "avancements",
@@ -10,7 +51,8 @@ module.exports = [
                     sort: {
                         dateEffet: -1
                     }
-                }
+                },
+                match: match
             })
             .orFail(() => {
                 console.log("Can't find it")
@@ -18,6 +60,7 @@ module.exports = [
             })
             .then((result) => {
                 res.locals.personnel.avancements = result.avancements
+                console.log("done : ", result.avancements.length)
                 next()
             })
             .catch(err => {
@@ -29,6 +72,7 @@ module.exports = [
 
     (req, res, next) => {
         res.locals.cadres.forEach(c => {
+            res.locals.callthis = true
             c.grades.forEach(g => {
                 g.echelons.forEach(e => {
                     e.avancements.forEach(a => {

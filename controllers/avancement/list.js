@@ -10,17 +10,24 @@ const Personne = require("../../models/personne")
 
 module.exports = [
     (req, res, next) => {
-        if (req.params.type == avancementConf.types.grade)
+        if (req.params.type == "grade") {
             res.locals.match = {
-                type: avancementConf.types.grade
+                $or: [{
+                    type: "grade"
+                },{
+                    type: "recrutement"
+                }]
             }
-        else {
+        } else {
+            console.log(avancementConf.types[req.params.type] + " != " + avancementConf.types.grade)
             req.params.type = "Tous"
             res.locals.match = {}
         }
 
 
         res.locals.page_title = "Avancement (" + req.params.type + ")";
+        console.log("avancementConf : ", avancementConf)
+        res.locals.avancementConf = avancementConf.types
 
         next()
     },
@@ -103,7 +110,7 @@ module.exports = [
                 results.forEach(p => {
                     p.lastAv = p.avancements[0]
                 })
-                res.locals.lastAvs = results
+                res.locals.lastAvs = results.filter(r => r.avancements.length > 0)
                 next()
             })
             .catch(
@@ -121,9 +128,10 @@ module.exports = [
                 g.echelons.forEach(e => {
                     e.count = 0
                     e.avancements.forEach(a => {
-                        a.personnel = res.locals.lastAvs.filter(this_p => { 
+                        a.personnel = res.locals.lastAvs.filter(this_p => {
                             // console.log("this_p.lastAv => ",this_p)
-                            return this_p.lastAv.code == a.code})[0]
+                            return this_p.lastAv.code == a.code
+                        })[0]
                         if (a.personnel) {
                             c.count++
                             g.count++

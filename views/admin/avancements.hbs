@@ -20,7 +20,9 @@
           <th scope="col" >Grade</th>
           <th scope="col">Echelon</th>
           <th scope="col">Date d'effet</th>
+          <th scope="col">Type</th>
           <th scope="col">Personnel</th>
+          <th scope="col">Arrété</th>
         </tr>
       </thead>
       <tbody>
@@ -54,12 +56,15 @@
             {{#each echelons}}
             {{#if count }} <td rowspan="{{ count }}" class="column">  {{ setVar "i" 4 }} Echelon : {{titre}} | {{indice}} </td> {{/if}}
               {{#each avancements}}
-              {{#if personnel }} <td rowspan="1" class="column">
+              {{#if personnel }} 
+              <td rowspan="1" class="column">
                 {{dateFormat dateEffet "yyyy-MM-DD" }}
               </td>
-              <td rowspan="1" class="column">  <a href="/admin/personnel/{{personnel._id}}"> {{personnel.personne.prenom}} {{personnel.personne.nom}} </a> </td> {{/if}}
-
-              {{#for ../../../../i 5 1}}
+              <td> {{ type }} </td>
+              <td rowspan="1" class="column">  <a href="/admin/personnel/{{personnel._id}}"> {{personnel.personne.prenom}} {{personnel.personne.nom}} </a> </td>
+              <td> <a href={{ link_arrete }} class="text-dark"> <i class="fas fa-eye"></i></a> </td>
+              {{/if}}
+               {{#for ../../../../i 7 1}}
                  {{ setVar "i" 3 }}<td  rowspan="1" style="display: none;">{{ this }} </td>
               {{/for }} 
               </tr>

@@ -12,9 +12,12 @@ const avancementConf = require('../../models//config/avancementConf');
 const Echelon = require('../../models/echelon')
 const async = require("async")
 var fs = require('fs');
-const  personnel = require('../../models/personnel');
+const personnel = require('../../models/personnel');
 const page = "admin/personnel"
-module.exports = [
+module.exports = [(req, res, next) => {
+        res.locals.callthis = false
+        next()
+    },
     require("./form"),
     require("./personnel"),
     require('./avancements'),
@@ -110,13 +113,13 @@ module.exports = [
         const fileName = res.locals.avancement._id + "." + ext
         res.locals.avancement.arrete = fileName
         var newpath = avancementConf.pathFolder + fileName;
-        console.log("avancementConf.path : ",avancementConf.pathFolder)
-        console.log("fileName : ",fileName)
+        console.log("avancementConf.path : ", avancementConf.pathFolder)
+        console.log("fileName : ", fileName)
 
         console.log("oldpath : ", oldpath)
         fs.rename(oldpath, newpath, function (err) {
             if (err) { //throw new Error(err)
-                console.log("newpath : ",newpath)
+                console.log("newpath : ", newpath)
                 res.locals.result = "Une erreur s'est produite lors du transfert du fichier"
                 res.render(page)
             }
@@ -142,40 +145,47 @@ module.exports = [
                 personnel.updateOne({
                     _id: ObjectId(req.params._id)
                 }, {
-                    $push: { avancements : res.locals.avancement }
+                    $push: {
+                        avancements: res.locals.avancement
+                    }
                 }).catch(err => {
-                    console.log("err : ",err)
+                    console.log("err : ", err)
                     callback(new Error("Une erreur s'est produite lorsqu'on a essayé d'attribuer l'avancement au personnel en question "))
                 }).then(
-                    callback(null,true)
+                    callback(null, true)
                 )
             },
-            addToEchelon : (callback) => {
+            addToEchelon: (callback) => {
                 Echelon.updateOne({
                     _id: ObjectId(req.fields.echelon)
                 }, {
-                    $push: { avancements : res.locals.avancement }
+                    $push: {
+                        avancements: res.locals.avancement
+                    }
                 }).catch(err => {
-                    console.log("err : ",err)
+                    console.log("err : ", err)
                     callback(new Error("Une erreur s'est produite lorsqu'on a essayé d'attribuer l'avancement à l'échelon choisis "))
                 }).then(
-                    callback(null,true)
+                    callback(null, true)
                 )
             }
         }, (err, results) => {
-            if(err){
+            if (err) {
                 res.locals.result = err
                 res.render(page)
-            }
-            else if( results.addToPersonnel && results.addToEchelon  ){
+            } else if (results.addToPersonnel && results.addToEchelon) {
                 res.locals.result = "Avancement ajouté avec succés"
                 res.locals.success = true
                 next()
             }
         })
     },
+    /* (req, res, next) => {
+        setTimeout( () => {next()},3000)
+    }, */
     require("./avancements"),
     (req, res, next) => {
+        console.log("gooo gooo")
         res.render(page)
     }
 ]

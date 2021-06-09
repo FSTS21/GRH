@@ -1,5 +1,4 @@
 const Personnel = require("../../models/personnel")
-const Cadre = require("../../models/cadre")
 
 module.exports = [
     (req, res, next) => {
@@ -22,30 +21,5 @@ module.exports = [
                 res.locals.result = err
                 res.render("admin/personnel")
             })
-    },
-    (req, res, next) => {
-
-        Cadre.find()
-            .populate({
-                path: 'grades',
-                model: require("../../models/grade"),
-                populate: {
-                    path: 'echelons',
-                    model: require("../../models/echelon"),
-                    match: {
-                        avancements: {
-                            $not: {
-                                $size: 0
-                            }
-                        }
-                    }
-                }
-            })
-            .then(results => {
-                res.locals.cadres = results
-                next()
-            })
-
-
     }
 ]

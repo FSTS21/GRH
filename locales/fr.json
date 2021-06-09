@@ -15,7 +15,7 @@
 			"grade_3": "models.grade.grade_3",
 			"libelle": {
 				"grade_3": "3éme grade",
-				"grade_1": "models.grade.libelle.grade_1",
+				"grade_1": "1ér grade",
 				"grade_4": "4éme grade",
 				"grade_2": "2éme grade"
 			}

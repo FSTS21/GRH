@@ -158,8 +158,10 @@ module.exports = [
                 specialFncs.catchErrors(err.errors, res.locals.myErrors)
                 console.log(res.locals.result)
                 console.log(err)
-                next()
-            })
+                res.render(config.page, {
+                    ...config.initPage
+                })
+        })
 
     },
 
