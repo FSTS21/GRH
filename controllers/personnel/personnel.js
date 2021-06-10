@@ -2,6 +2,7 @@ const Personnel = require("../../models/personnel")
 
 module.exports = [
     (req, res, next) => {
+        res.locals.personneConf = require("../../models/config/personneConf")
         Personnel.findById(req.params._id)
             .populate({
                 path: "personne",

@@ -24,7 +24,7 @@ module.exports = [(req, res, next) => {
                     
                 })
             }) 
-            console.log("cadres founded..",results)
+
             res.locals.formCadres = results
             next()
         })

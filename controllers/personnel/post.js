@@ -128,6 +128,7 @@ module.exports = [(req, res, next) => {
 
     },
     (req, res, next) => {
+        console.log("saving the avancement")
         res.locals.avancement.save()
             .catch(err => {
                 res.locals.result = "Avancement non inséré à la base de donnée!"
