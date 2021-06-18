@@ -4,25 +4,24 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const adminRouter = require("./routes/admin")
 
 var app = express();
 
-const dotenv = require("dotenv");
-dotenv.config({
+app.use(require('express-formidable')());
+
+require("dotenv").config({
   path: true
 });
 require('custom-env').env(true)
- 
+
 // var favicon = require('serve-favicon')
 
 const i18n = require("i18n");
 i18n.configure({
   locales: ['fr', 'ar'],
   // defaultLocale: 'fr',
-  queryParameter: 'switch_lang', 
+  queryParameter: 'switch_lang',
   cookie: process.env.prefix + 'i18n_lang',
   updateFiles: true, // default true :: if I use some word don't exist on my files local, it will create automatically
   syncFiles: true, // default false
@@ -49,7 +48,7 @@ i18n.configure({
   },
 
 });
-i18n.setLocale("fr") 
+i18n.setLocale("fr")
 app.use(i18n.init);
 
 /* ************************** create connection */
@@ -62,7 +61,7 @@ mongoose.connect(mongoDB, {
   autoIndex: true,
   useCreateIndex: true,
   useFindAndModify: false
-}); 
+});
 // mongoose.set('debug', true);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erreur de connexion MongoDB:'));
@@ -98,8 +97,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use("/admin/", adminRouter)
 app.use("/fillingDB/", require("./routes/fillingDB"))
 

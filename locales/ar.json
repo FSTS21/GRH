@@ -1,21 +1,55 @@
 {
 	"generals": {
-		"errors": {
-			"special_chars": "generals.errors.special_chars"
-		}
+		"errors": {}
 	},
 	"models": {
 		"personne": {
 			"situation": {
-				"celib": "models.personne.situation.celib",
-				"marie": "models.personne.situation.marie",
-				"devorce": "models.personne.situation.devorce",
-				"divorce": "models.personne.situation.divorce"
+				"celib": "Célibataire",
+				"marie": "Marié",
+				"divorce": "Divorcé"
+			}
+		},
+		"grade": {
+			"grade_1": "1ér grade",
+			"grade_3": "models.grade.grade_3",
+			"libelle": {
+				"grade_3": "models.grade.libelle.grade_3",
+				"grade_1": "models.grade.libelle.grade_1",
+				"grade_4": "models.grade.libelle.grade_4",
+				"grade_2": "models.grade.libelle.grade_2"
+			}
+		},
+		"cadre": {
+			"ingenieur": "Ingénieur",
+			"technicien": "models.cadre.technicien",
+			"libelle": {
+				"technicien": "models.cadre.libelle.technicien",
+				"ingenieur": "models.cadre.libelle.ingenieur",
+				"technicien_adjoint": "models.cadre.libelle.technicien_adjoint"
+			}
+		},
+		"personnel": {
+			"categorie": {
+				"fonctionnaire": "models.personnel.categorie.fonctionnaire",
+				"enseignant": "models.personnel.categorie.enseignant"
 			}
 		}
 	},
 	"Masculin": "Masculin",
 	"Féminin": "Féminin",
 	"Marocaine": "Marocaine",
-	"Internationale": "Internationale"
+	"Internationale": "Internationale",
+	"models.cadre.libelle.": "models.cadre.libelle.",
+	"models.grade.libelle.": "models.grade.libelle.",
+	"+libelle_tr+": "+libelle_tr+",
+	"\"+g": {
+		"libelle_tr+\"": "\"+g.libelle_tr+\""
+	},
+	"+g": {
+		"libelle_tr+": "+g.libelle_tr+"
+	},
+	"(\"+g": {
+		"libelle_tr+\")": "(\"+g.libelle_tr+\")"
+	}
 }

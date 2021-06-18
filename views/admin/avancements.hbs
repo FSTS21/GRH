@@ -1,0 +1,100 @@
+{{> "admin/header"}}
+<div class="col-12 col-md-9 mt-3 mt-md-0 pl-0 pr-2">
+
+
+  <div class="title-page col-12 p-2 pl-4 bg-dark">
+    <h4 class="text-white font-weight-bold text-capitalize"> {{ page_title }} </h4>
+  </div>
+  <div class="col-12 bg-c-white p-2 pl-4 h-100 pb-1 pt-4">
+    {{#if result}}
+    <div class="col-12 alert alert-{{ternaryIf success 'success' 'danger'}} " role="alert">
+      {{result}}
+      <!-- We have sent a password reset link to your mailbox if it exists. -->
+    </div>
+    {{/if}}
+
+    <table class="table">
+      <thead class="thead-light" >
+        <tr>
+          <th scope="col">Cadre</th>
+          <th scope="col" >Grade</th>
+          <th scope="col">Echelon</th>
+          <th scope="col">Date d'effet</th>
+          <th scope="col">Type</th>
+          <th scope="col">Personnel</th>
+          <th scope="col">Arrété</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{!-- 
+
+        <tr>
+          <td rowspan="2"> 44</td>
+          <td rowspan="2"> 44</td>
+          <td rowspan="2">22 </td>
+          <td rowspan="1">11</td>
+
+        </tr>
+
+        <tr>
+          <td rowspan="1" >
+            55
+          </td>
+          <td rowspan="1" style="display: none;"></td>
+          <td rowspan="1" style="display: none;"></td>
+          <td rowspan="1" style="display: none;"></td>
+        </tr>
+        
+        --}}
+      
+       {{#each allAvancements}}
+        <tr>
+          
+          {{#if count }} <td rowspan="{{ count }}" class="column"> {{ setVar "i" 2 }}  {{ translate libelle_tr  }} </td> {{/if}}
+          {{#each grades}}
+          {{#if count }} <td rowspan="{{ count}}" class="column" >  {{ setVar "i" 3 }}   {{ translate libelle_tr  }}  </td> {{/if}}
+            {{#each echelons}}
+            {{#if count }} <td rowspan="{{ count }}" class="column">  {{ setVar "i" 4 }} Echelon : {{titre}} | {{indice}} </td> {{/if}}
+              {{#each avancements}}
+              {{#if personnel }} 
+              <td rowspan="1" class="column">
+                {{dateFormat dateEffet "yyyy-MM-DD" }}
+              </td>
+              <td> {{ type }} </td>
+              <td rowspan="1" class="column">  <a href="/admin/personnel/{{personnel._id}}"> {{personnel.personne.prenom}} {{personnel.personne.nom}} </a> </td>
+              <td> <a href={{ link_arrete }} class="text-dark"> <i class="fas fa-eye"></i></a> </td>
+              {{/if}}
+               {{#for ../../../../i 7 1}}
+                 {{ setVar "i" 3 }}<td  rowspan="1" style="display: none;">{{ this }} </td>
+              {{/for }} 
+              </tr>
+              {{ setVar "i" 1 }}
+              {{/each}}
+            {{/each}}
+          {{/each}}
+        {{/each}}
+
+
+
+
+
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{{> "admin/footer"}}
+
+<script>
+  $(() => {
+    // $('#myTable').DataTable();
+    // $('#myTable tr:last').remove();
+  })
+</script>
+
+
+</body>
+
+</html>

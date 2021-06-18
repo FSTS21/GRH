@@ -5,11 +5,15 @@ exports.situations = {
 }
 
 exports.sexes = {
-    "h" : "Masculin",
-    "f" : "Féminin"
+    "masculin" : "Masculin",
+    "feminin" : "Féminin"
 }
 
 exports.nationnalites = {
     "marocaine" : "Marocaine",
     "inter" : "Internationale"
 }
+
+const photosFolder = "photos/"
+require('custom-env').env(true)
+exports.pathFolder = process.env.pathFolder+photosFolder

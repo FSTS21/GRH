@@ -19,16 +19,16 @@ const PersonnelSchema = new Schema({
         min: [100000, "Ce numéro de SOM n'est pas valide"],
         max: [99999999, "Ce numéro de SOM n'est pas valide"]
     },
-    dateRecrutement : {
+    /* dateRecrutement : {
         type: Date,
         required: [true,"Ce champ est requis"],
-    },
-    arreteRecrutement: {
+    }, */
+    /*  arrete: {
         type: String,
         required: [true,"Ce champ est requis"],
         minlength: messages.minlength(10),
         maxlength: messages.maxlength(20)
-    },
+    }, */
     dateIntegrationFST : {
         type: Date,
         required: [true,"Ce champ est requis"],
@@ -36,13 +36,13 @@ const PersonnelSchema = new Schema({
     fonction : {
         type: String,
         required : [true, "Ce champ est requis"],
-        minlength: messages.minlength(60),
+        minlength: messages.minlength(5),
         maxlength: messages.maxlength(120)
     },
     fonctionAr : {
         type: String,
         required : [true, "Ce champ est requis"],
-        minlength: messages.minlength(60),
+        minlength: messages.minlength(5),
         maxlength: messages.maxlength(120)
     },
     debutFonction : {
@@ -56,14 +56,14 @@ const PersonnelSchema = new Schema({
         maxlength: messages.maxlength(50),
         unique: "Cette adresse email est déja pris!",
     },
-    categorie : {
+    /* categorie : {
         type: String,
         required: [true, "Ce champ est requis"],
         enum: {
             values: Object.keys(personnelConf.categories),
-            message : "Veuillez choisissez une nationnalité"
-        }
-    },
+            message : "Veuillez choisissez une catégorie"
+        } 
+    }, */
 
     /* Foreign keys */
     notaions: [{

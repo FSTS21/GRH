@@ -1,0 +1,167 @@
+{{> "admin/header"}}
+<div class="col-12 col-md-9 mt-3 mt-md-0 pl-0 pr-2">
+
+
+  <div class="title-page col-12 p-2 pl-4 bg-dark">
+    <h4 class="text-white font-weight-bold text-capitalize"> {{ page_title }} </h4>
+  </div>
+  <div class="col-12 bg-c-white p-2 pl-4 h-100 pb-1 pt-4">
+    {{#if result}}
+    <div class="col-12 alert alert-{{ternaryIf success 'success' 'danger'}} " role="alert">
+      {{result}}
+      <!-- We have sent a password reset link to your mailbox if it exists. -->
+    </div>
+    {{/if}}
+    <form method="POST" enctype="multipart/form-data">
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="dateEffetInput"><b>Date de recrutement </b></label>
+          <input type="Date" name="dateEffet" value={{ dateFormat personnel.dateEffet 'yyyy-MM-DD' }}
+            class="{{ternaryIf myErrors.dateEffet 'is-invalid' ''}} form-control" id="dateEffetInput"
+            aria-describedby="dateEffetHelp">
+          {{#if myErrors.dateEffet }}
+          <small id="dateEffetHelp" class="form-text text-muted">{{ myErrors.dateEffet }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="arreteInput">Arrété</label>
+          <input type="file" name="arrete" class="form-control" id="arreteInput" aria-describedby="arreteHelp">
+          {{#if myErrors.arrete }}
+          <small id="arreteHelp" class="form-text text-muted">{{ myErrors.arrete }}</small>
+          {{/if}} </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="SOMInput"><b>Numéro de SOM</b></label>
+          <input type="number" name="SOM" value="{{personnel.SOM}}"
+            class="{{ternaryIf myErrors.SOM 'is-invalid' ''}} form-control" id="SOMInput" aria-describedby="prenomHelp">
+          {{#if myErrors.SOM }}
+          <small id="SOMHelp" class="form-text text-muted">{{ myErrors.SOM }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="dateIntegrationFSTInput"><b>Date d'intégration à la FST </b></label>
+          <input type="Date" name="dateIntegrationFST" value={{ dateFormat personnel.dateIntegrationFST 'yyyy-MM-DD' }}
+            class="{{ternaryIf myErrors.dateIntegrationFST 'is-invalid' ''}} form-control" id="dateIntegrationFSTInput"
+            aria-describedby="dateIntegrationFSTHelp">
+          {{#if myErrors.dateIntegrationFST }}
+          <small id="dateIntegrationFSTHelp" class="form-text text-muted">{{ myErrors.dateIntegrationFST }}</small>
+          {{/if}}
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="fonctionInput"> <b>Fonction</b></label>
+          <input type="text" name="fonction" value="{{personnel.fonction}}"
+            class="{{ternaryIf myErrors.fonction 'is-invalid' ''}} form-control" id="fonctionInput"
+            aria-describedby="fonctionHelp">
+          {{#if myErrors.fonction }}
+          <small id="fonctionHelp" class="form-text text-muted">{{ myErrors.fonction }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="fonctionArInput"><b>Fonction (arabe)</b></label>
+          <input type="text" name="fonctionAr" value="{{personnel.fonctionAr}}"
+            class="{{ternaryIf myErrors.fonctionAr 'is-invalid' ''}} form-control" id="fonctionArInput"
+            aria-describedby="fonctionArHelp">
+          {{#if myErrors.fonctionAr }}
+          <small id="fonctionArHelp" class="form-text text-muted">{{ myErrors.fonctionAr }}</small>
+          {{/if}}
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="debutFonctionInput"><b>Date de début du fonction </b></label>
+          <input type="Date" name="debutFonction" value={{ dateFormat personnel.debutFonction 'yyyy-MM-DD' }}
+            class="{{ternaryIf myErrors.debutFonction 'is-invalid' ''}} form-control" id="debutFonctionInput"
+            aria-describedby="debutFonctionHelp">
+          {{#if myErrors.debutFonction }}
+          <small id="debutFonctionHelp" class="form-text text-muted">{{ myErrors.debutFonction }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="emailAcademiqueInput"><b>L'email académique</b></label>
+          <input type="text" name="emailAcademique" value="{{personnel.emailAcademique}}"
+            class="{{ternaryIf myErrors.emailAcademique 'is-invalid' ''}} form-control" id="emailAcademiqueInput"
+            aria-describedby="emailAcademiqueHelp">
+          {{#if myErrors.emailAcademique }}
+          <small id="emailAcademiqueHelp" class="form-text text-muted">{{ myErrors.emailAcademique }}</small>
+          {{/if}}
+        </div>
+
+      </div>
+
+
+
+
+
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="cadreSelect">Cadre</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.cadre 'is-invalid' ''}} "
+            aria-describedby="cadreHelp" id="cadreSelect" name="cadre">
+            <option selected></option>
+            {{#each formCadres }}
+            <option value={{_id}} {{ ternaryIf (iff ../cadre '==' _id ) 'selected' ''}} data-grades="{{ json grades }}">
+              {{ translate libelle_tr }}</option>
+            {{/each}}
+          </select>
+          {{#if myErrors.cadre }}
+          <small id="cadreHelp" class="form-text text-muted">{{ myErrors.cadre }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <!-- <label for="categorieInput"> <b>Catégorie</b></label>
+          <select name="categorie" class="{{ternaryIf myErrors.categorie 'is-invalid' ''}} form-control"
+            aria-describedby="categorieHelp" id="categorieInput">
+            <option></option>
+            {{#each categories}}
+            <option value={{@key}} {{ ternaryIf (iff ../personne.categorie '==' @key) 'selected' ''}}>
+              {{ translate this}}</option>
+            {{/each }}
+          </select>
+          {{#if myErrors.categorie }}
+          <small id="categorieHelp" class="form-text text-muted">{{ myErrors.categorie }}</small>
+          {{/if}} -->
+          <label class="mr-sm-2" for="gradeSelect">Grade</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.grade 'is-invalid' ''}} "
+            aria-describedby="gradeHelp" id="gradeSelect" name="grade">
+            <option></option>
+          </select>
+          {{#if myErrors.grade }}
+          <small id="gradeHelp" class="form-text text-muted">{{ myErrors.grade }}</small>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="echelonSelect">Echelon</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.echelon 'is-invalid' ''}} "
+            aria-describedby="echelonHelp" id="echelonSelect" name="echelon">
+            <option></option>
+          </select>
+          {{#if myErrors.echelon }}
+          <small id="echelonHelp" class="form-text text-muted">{{ myErrors.echelon }}</small>
+          {{/if}}
+        </div>
+      </div>
+
+      <input type="submit" class="btn btn-primary" value="Recruter"></button>
+    </form>
+
+  </div>
+</div>
+
+{{> "admin/footer"}}
+{{> scripts/loadEchelons }}
+
+</body>
+
+</html>
