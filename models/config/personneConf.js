@@ -5,8 +5,8 @@ exports.situations = {
 }
 
 exports.sexes = {
-    "h" : "Masculin",
-    "f" : "Féminin"
+    "masculin" : "Masculin",
+    "feminin" : "Féminin"
 }
 
 exports.nationnalites = {
