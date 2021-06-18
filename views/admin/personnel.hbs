@@ -1,0 +1,173 @@
+{{> "admin/header"}}
+<div class="col-12 col-md-9 mt-3 mt-md-0 pl-0 pr-2">
+
+
+  <div class="title-page col-12 p-2 pl-4 bg-dark">
+    <h4 class="text-white font-weight-bold text-capitalize"> {{ page_title }} </h4>
+  </div>
+  <div class="col-12 bg-c-white p-2 pl-4 h-100 pb-1 pt-4">
+    {{#if result}}
+    <div class="col-12 alert alert-{{ternaryIf success 'success' 'danger'}} " role="alert">
+      {{result}}
+      <!-- We have sent a password reset link to your mailbox if it exists. -->
+    </div>
+    {{/if}}
+    <div>
+      <ul>
+        <li> <img src="{{ concat "/uploads/photos/" personnel.personne.photo }}"  width="300"/> </li>
+        <li> Nom : <b>{{ personnel.personne.nom }}</b> </li>
+        <li> Prénom : <b>{{ personnel.personne.prenom }}</b> </li>
+        <li> CIN : <b>{{ personnel.personne.CIN }}</b> </li>
+      </ul>
+    </div>
+    <br />
+
+
+    <form class="col-12" method="POST" enctype="multipart/form-data">
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="cadreSelect">Cadre</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.cadre 'is-invalid' ''}} "
+            aria-describedby="cadreHelp" id="cadreSelect" name="cadre">
+            <option selected></option>
+            {{#each formCadres }}
+            <option value={{_id}} {{ ternaryIf (iff ../cadre '==' _id ) 'selected' ''}} data-grades="{{ json grades }}">
+              {{ translate libelle_tr }}</option>
+            {{/each}}
+          </select>
+          {{#if myErrors.cadre }}
+          <small id="cadreHelp" class="form-text text-muted">{{ myErrors.cadre }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="typeSelect">Type d'avancement</label>
+
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.type 'is-invalid' ''}} " aria-describedby="typeHelp"
+            id="typeSelect" name="type">
+            <option></option>
+            {{#each typesForm }}
+            <option value={{@key}} {{ ternaryIf (iff ../avancement.type '==' @key) 'selected' ''}}>
+              {{ this}}</option>
+            {{/each }}
+          </select>
+
+          {{#if myErrors.type }}
+          <small id="typeHelp" class="form-text text-muted">{{ myErrors.type }}</small>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="gradeSelect">Grade</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.grade 'is-invalid' ''}} "
+            aria-describedby="gradeHelp" id="gradeSelect" name="grade">
+            <option></option>
+          </select>
+          {{#if myErrors.grade }}
+          <small id="gradeHelp" class="form-text text-muted">{{ myErrors.grade }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="dateEffetInput">Date d'effet</label>
+          <input type="date" name="dateEffet" value="{{dateFormat avancement.dateEffet 'yyyy-MM-DD' }}"
+            class="{{ternaryIf myErrors.dateEffet 'is-invalid' ''}} form-control" id="dateEffetInput"
+            aria-describedby="dateEffetHelp">
+          {{#if myErrors.dateEffet }}
+          <small id="dateEffetHelp" class="form-text text-muted">{{ myErrors.dateEffet }}</small>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="echelonSelect">Echelon</label>
+          <select class="custom-select mr-sm-2 {{ternaryIf myErrors.echelon 'is-invalid' ''}} "
+            aria-describedby="echelonHelp" id="echelonSelect" name="echelon">
+            <option></option>
+          </select>
+          {{#if myErrors.echelon }}
+          <small id="echelonHelp" class="form-text text-muted">{{ myErrors.echelon }}</small>
+          {{/if}}
+        </div>
+        <div class="form-group col-6">
+          <label class="mr-sm-2" for="arreteInput">Arrété</label>
+          <input type="file" name="arrete" class="form-control" id="arreteInput" aria-describedby="arreteHelp">
+          {{#if myErrors.arrete }}
+          <small id="arreteHelp" class="form-text text-muted">{{ myErrors.arrete }}</small>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-6">
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </div>
+    </form>
+
+    <br />
+
+    <h4>
+      Avancements
+    </h4>
+    <table class="table">
+      <tr class="thead-light">
+        <th> Type d'av.</th>
+        <th> Cadre </th>
+        <th> Grade </th>
+        <th> Echelon </th>
+        <th> Date d'effet </th>
+        <th> Arrete </th>
+      </tr>
+      {{#each personnel.avancements}}
+      <tr data-_id="{{ this._id }}" data-echelon="{{ this.echelon._id }}">
+        <td> {{ this.type }} </td>
+        <td> {{ translate this.cadre.libelle_tr }} </td>
+        <td> {{ translate this.grade.libelle_tr }} </td>
+        <td> Echelon {{ this.echelon.titre }} | {{ this.echelon.indice }} </td>
+        <td> {{ dateFormat this.dateEffet "yyyy-MM-DD" }} </td>
+        <!-- <td> <a href={{ concat "/uploads/photos/" personnel.personne.photo }} class="text-dark"> <i class="fas fa-eye"></i></a> &nbsp; -->
+          <td> <a href={{ concat "/uploads/arretes/" this.arrete }} class="text-dark"> <i class="fas fa-eye"></i></a> &nbsp;
+
+          {{#if (iff this.type "!=" "recrutement") }}
+          <i class="far fa-trash-alt text-right removeAv"></i> </td>
+        {{/if}}
+      </tr>
+      {{/each}}
+    </table>
+  </div>
+</div>
+
+
+{{> "admin/footer"}}
+{{> scripts/loadEchelons }}
+
+<script>
+  $(() => {
+    // $('#myTable').DataTable();
+    // $('#myTable tr:last').remove();
+
+    $(".removeAv").click(function (e) {
+      if (confirm("Êtes-vous sûr de supprimer ?")) {
+        const tr = $(e.target).parents("tr")
+        fetch("./removeAv/" + tr.data("_id") + "/" + tr.data("echelon") + "/{{ personnel._id }}")
+          .then((response) => {
+            if (response.status == 200) {
+              console.log("deleted")
+              tr.css("background-color", "red")
+              setInterval(() => {
+                tr.hide("slow")
+              }, 1000);
+            } else
+              console.error("Error : ", response.text)
+          })
+          .catch((err) => {
+            console.log("cannot remove this", err)
+          })
+      }
+    })
+
+  })
+</script>
+
+</body>
+
+</html>

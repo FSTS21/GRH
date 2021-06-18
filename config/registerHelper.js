@@ -101,6 +101,13 @@ exports.setVar = (varName, varValue, options) => {
     options.data.root[varName] = varValue;
 }
 
+exports.for  = function(from, to, incr, block) {
+    var accum = '';
+    for(var i = from; i < to; i += incr)
+        accum += block.fn(i);
+    return accum;
+}
+
 exports.dateFormat = require('handlebars-dateformat')
 
 const i18n = require("i18n");
@@ -109,3 +116,9 @@ exports.translate = (str, ...args) => {
     const array_args = array_str.filter(v => v !== array_str[0])
     return i18n.__(array_str[0], ...array_args.concat(args))
 }
+
+exports.concat = function(){
+    var arg = Array.prototype.slice.call(arguments,0);
+    arg.pop();
+    return arg.join('');
+  };

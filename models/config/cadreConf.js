@@ -3,3 +3,4 @@ exports.libelles = {
     "technicien_adjoint"        : "models.cadre.libelle.technicien_adjoint",
     "ingenieur"                 : "models.cadre.libelle.ingenieur"
 }
+

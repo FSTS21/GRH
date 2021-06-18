@@ -1,8 +1,6 @@
 {
 	"generals": {
-		"errors": {
-			"special_chars": "generals.errors.special_chars"
-		}
+		"errors": {}
 	},
 	"models": {
 		"personne": {
@@ -11,10 +9,47 @@
 				"marie": "Marié",
 				"divorce": "Divorcé"
 			}
+		},
+		"grade": {
+			"grade_1": "1ér grade",
+			"grade_3": "models.grade.grade_3",
+			"libelle": {
+				"grade_3": "3éme grade",
+				"grade_1": "1ér grade",
+				"grade_4": "4éme grade",
+				"grade_2": "2éme grade"
+			}
+		},
+		"cadre": {
+			"ingenieur": "Ingénieur",
+			"technicien": "models.cadre.technicien",
+			"libelle": {
+				"technicien": "technicien",
+				"ingenieur": "ingenieur",
+				"technicien_adjoint": "models.cadre.libelle.technicien_adjoint"
+			}
+		},
+		"personnel": {
+			"categorie": {
+				"fonctionnaire": "models.personnel.categorie.fonctionnaire",
+				"enseignant": "models.personnel.categorie.enseignant"
+			}
 		}
 	},
 	"Masculin": "Masculin",
 	"Féminin": "Féminin",
 	"Marocaine": "Marocaine",
-	"Internationale": "Internationale"
+	"Internationale": "Internationale",
+	"models.cadre.libelle.": "models.cadre.libelle.",
+	"models.grade.libelle.": "models.grade.libelle.",
+	"+libelle_tr+": "+libelle_tr+",
+	"\"+g": {
+		"libelle_tr+\"": "\"+g.libelle_tr+\""
+	},
+	"+g": {
+		"libelle_tr+": "+g.libelle_tr+"
+	},
+	"(\"+g": {
+		"libelle_tr+\")": "(\"+g.libelle_tr+\")"
+	}
 }

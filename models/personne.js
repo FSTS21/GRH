@@ -112,8 +112,9 @@ const PersonneSchema = new Schema({
     },
     photo: {
         type: String,
-        // minlength: messages.minlength(10),
-        maxlength: messages.maxlength(20)
+        required : [true, "Ce champ est requis"],
+        minlength: messages.minlength(20),
+        maxlength: messages.maxlength(30)
     },
 
     /* Foreign keys */
@@ -121,6 +122,18 @@ const PersonneSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Demande',
     }],
+})
+
+PersonneSchema.virtual("nationnalite_tr").get( function(){
+    return "models.personne.nationnalite."+this.nationnalite
+})
+
+PersonneSchema.virtual("sexe_tr").get( function(){
+    return "models.personne.sexe."+this.sexe
+})
+
+PersonneSchema.virtual("situation_tr").get( function(){
+    return "models.personne.situation."+this.situation
 })
 
 PersonneSchema.plugin(require('mongoose-beautiful-unique-validation'))

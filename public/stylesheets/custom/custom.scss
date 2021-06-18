@@ -15,4 +15,14 @@ body {
     max-width: 500px;
 }
 
+.column{
+    vertical-align : middle  !important;
+    // text-align:center
+}
+
+.removeAv{
+    cursor: no-drop;
+}
+
 @import "./menu-left"
+
