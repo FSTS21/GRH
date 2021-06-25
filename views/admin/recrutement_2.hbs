@@ -17,7 +17,7 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="dateEffetInput"><b>Date de recrutement </b></label>
-          <input type="Date" name="dateEffet" value={{ dateFormat personnel.dateEffet 'yyyy-MM-DD' }}
+          <input type="Date" name="dateEffet" value={{ dateFormat avancement.dateEffet 'yyyy-MM-DD' }}
             class="{{ternaryIf myErrors.dateEffet 'is-invalid' ''}} form-control" id="dateEffetInput"
             aria-describedby="dateEffetHelp">
           {{#if myErrors.dateEffet }}
