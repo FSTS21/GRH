@@ -78,6 +78,7 @@ const PersonneSchema = new Schema({
     },
     matriculeVehicule :  {
         type : String,
+        unique: "Ce Matricule est déja enregistré dans nos bases de données",
         minlength: messages.minlength(4),
         maxlength: messages.maxlength(20),
     },

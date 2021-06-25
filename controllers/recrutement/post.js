@@ -174,7 +174,7 @@ module.exports = [
         })
         return */
         console.log("redirect to ",res.locals.personne._id)
-        res.redirect(req.originalUrl+res.locals.personne.CIN);
+        res.redirect(req.originalUrl+"/"+res.locals.personne.CIN);
 
     }
 ]

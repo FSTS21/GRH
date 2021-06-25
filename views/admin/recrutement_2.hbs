@@ -12,6 +12,13 @@
       <!-- We have sent a password reset link to your mailbox if it exists. -->
     </div>
     {{/if}}
+
+    {{#if myErrors.personne}}
+      <div class="col-12 alert alert-{{ternaryIf success 'success' 'danger'}} " role="alert">
+        {{myErrors.personne}}
+      </div>
+    {{/if}}
+
     <form method="POST" enctype="multipart/form-data">
 
       <div class="form-row">
@@ -154,6 +161,7 @@
       </div>
 
       <input type="submit" class="btn btn-primary" value="Recruter"></button>
+      <input type="reset" class="btn btn-secondary" value="Réinitialiser"></button>
     </form>
 
   </div>

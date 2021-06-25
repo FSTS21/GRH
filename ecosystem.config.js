@@ -22,8 +22,8 @@ module.exports = {
 
   deploy : {
     production : {
-      user: 'root',
-      host:  '172.16.5.4',
+      user: 'usertomcat',
+      host:  '10.5.0.112',
       port: "22",
       ref: 'origin/main',
       repo: 'git@github.com:FSTS21/GRH.git',
