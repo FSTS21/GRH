@@ -17,6 +17,7 @@ module.exports = [
             ...req.fields
         }
         req.body.photo = req.files.photo.name
+        console.log("prepare redirecting to ",req.originalUrl+"545456")
         next()
     },
     /* *********************** middlewares to check my fields **********/
@@ -173,7 +174,7 @@ module.exports = [
         })
         return */
         console.log("redirect to ",res.locals.personne._id)
-        res.redirect('./recrutement/' +res.locals.personne._id);
+        res.redirect(req.originalUrl+"/"+res.locals.personne.CIN);
 
     }
 ]

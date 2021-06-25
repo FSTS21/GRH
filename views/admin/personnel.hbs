@@ -99,6 +99,7 @@
       <div class="form-row">
         <div class="form-group col-6">
           <button type="submit" class="btn btn-primary">Ajouter</button>
+          <button type="reset" class="btn btn-secondary">Réinitialiser</button>
         </div>
       </div>
     </form>
@@ -126,10 +127,8 @@
         <td> {{ dateFormat this.dateEffet "yyyy-MM-DD" }} </td>
         <!-- <td> <a href={{ concat "/uploads/photos/" personnel.personne.photo }} class="text-dark"> <i class="fas fa-eye"></i></a> &nbsp; -->
           <td> <a href={{ concat "/uploads/arretes/" this.arrete }} class="text-dark"> <i class="fas fa-eye"></i></a> &nbsp;
-
-          {{#if (iff this.type "!=" "recrutement") }}
           <i class="far fa-trash-alt text-right removeAv"></i> </td>
-        {{/if}}
+        
       </tr>
       {{/each}}
     </table>

@@ -19,6 +19,7 @@ let ext
 
 module.exports = [
     require("../includes/loadEchelons"),
+    require("./findPersonne"),
     /* *********************** middleware to initale my page **********/
     (req, res, next) => {
 
@@ -164,24 +165,6 @@ module.exports = [
 
     },
 
-
-    /* ***************** Trouver la personne ****************/
-    (req, res, next) => {
-        require("../../models/personne").findById(req.params.personne)
-            .orFail(() => {
-                res.locals.result = "On n'arrive pas à trouver les infomration personnelles à la base donnée"
-                res.render(config.page)
-            })
-            .then(result => {
-                res.locals.personnel.personne = result
-                next()
-            }).catch(err => {
-                res.locals.result = "Erreur s'est produite! "+ err
-                specialFncs.catchErrors(err.errors, res.locals.myErrors)
-                res.render(config.page)
-            })
-    },
-
     /* ******************** ajouter l'avancement ******************* */
     (req, res, next) => {
         res.locals.avancement.save()
@@ -203,8 +186,8 @@ module.exports = [
         async.parallel({
             savePersonnel: callback => {
                 res.locals.personnel.save()
-                    .then(newPersonne => {
-                        if (!Object.keys(newPersonne).length) {
+                    .then(newPersonnel => {
+                        if (!Object.keys(newPersonnel).length) {
                             callback( new Error("On arrive pas à trouver le personnel que vous venez d'ajouter"))
                             res.render(config.page)
                             return
@@ -214,7 +197,7 @@ module.exports = [
                     })
                     .catch(err => {
                         specialFncs.catchErrors(err.errors, res.locals.myErrors)
-                        callback( new Error("Coordonnées non insérées à la base de donnée! "+err))
+                        callback( new Error("Coordonnées non insérées à la base de donnée! "))
                     })
             },
             addToEchelon: (callback) => {
@@ -234,9 +217,10 @@ module.exports = [
         }, (err, results) => {
             if (err) {
                 res.locals.result = err
+                console.error("Error : ",err)
                 res.render(config.page)
             } else if (results.savePersonnel && results.addToEchelon) {
-                res.locals.result = "Personnel recruté avec succés"
+                res.locals.result = "Personnel ("+res.locals.personnel.personne.nom+" "+res.locals.personnel.personne.prenom+") recruté avec succés"
                 res.locals.success = true
                 next()
 }
