@@ -28,11 +28,12 @@ module.exports = {
       ref: 'origin/main',
       repo: 'git@github.com:FSTS21/GRH.git',
       path: '/var/www/GRH',
+      // "ssh_options": "StrictHostKeyChecking=no",
 
-      "pre-setup" : "apt-get install git",
+      "pre-setup" : "",
       "pre-deploy-local" : "echo 'This is a local executed command'",
       'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production',
-      "post-setup": "ls -la",
+      "post-setup": "",
 
     }
   }
